@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('admin') }}/css/toastr.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    @yield('style')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -217,7 +218,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('post.index') }}">
-                                <i class="nav-icon fas fa-tag"></i>
+                                <i class="nav-icon fas fa-pen-square"></i>
                                 <p>
                                     Post
                                 </p>
@@ -285,7 +286,7 @@
     <script src="{{ asset('admin') }}/js/toastr.min.js"></script>
     <!-- Custom file input js -->
     <script src="{{ asset('admin') }}/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-
+    @yield('script')
     <script>
         @if(Session::has('success'))
         toastr.success("{{ Session::get('success') }}")

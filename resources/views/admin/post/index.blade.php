@@ -40,6 +40,7 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Category</th>
+                                    <th>Tags</th>
                                     <th>Author</th>
                                     <th style="width: 40px">Action</th>
                                 </tr>
@@ -48,14 +49,19 @@
                                 @forelse ($posts as $post)
                                     <tr>
                                         <td>{{ $post->id }}</td>
-                                        <td style="max-width: 70px; max-height: 70px; overflow: hidden;">
-                                            <img src="{{ asset($post->image) }}" class="img-fluide" alt="">
+                                        <td style="width: 100px;height: 70px;overflow:hidden">
+                                            <img src="{{ $post->image }}" class="img-fluid" alt="">
                                         </td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ $post->category_id }}</td>
-                                        <td>{{ $post->user_id }}</td>
+                                        <td>{{ $post->category->name }}</td>
+                                        <td>
+                                            @foreach ($post->tags as $tag)
+                                                <span class="badge badge-primary">{{ $tag->name }}</span>
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $post->user->name }}</td>
                                         <td class="d-flex ">
-                                            {{-- <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-success btn-sm mr-1"><i class="fas fa-eye"></i></a> --}}
+                                            <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-success btn-sm mr-1"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('post.edit', [$post->id]) }}" class="btn btn-primary btn-sm mr-1"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('post.destroy', [$post->id]) }}" class="mr-1" method="POST">
                                                 @method('DELETE')

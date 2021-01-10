@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
+use App\Tag;
 use App\Post;
 use App\Category;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'DESC')->paginate(20);
-        return view('admin.post.index', compact('posts'));
+        return view('admin.post.index', compact(['posts']));
     }
 
     /**
@@ -29,8 +30,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags = Tag::all();
         $categories = Category::get();
-        return view('admin.post.create', compact('categories'));
+        return view('admin.post.create', compact(['categories', 'tags']));
     }
 
     /**
@@ -58,6 +60,16 @@ class PostController extends Controller
             'published_at' => Carbon::now(),
         ]);
 
+        $post->tags()->attach($request->tag);
+
+        if ($request->has('image')) {
+            $image = $request->image;
+            $imageNewName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('storage/post', $imageNewName);
+            $post->image = '/storage/post/' . $imageNewName;
+            $post->save();
+        }
+
         Session::flash('success', 'Post Created');
         return redirect()->back();
     }
@@ -70,7 +82,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.post.show', compact('post'));
     }
 
     /**
@@ -81,7 +93,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('admin.post.edit', compact(['post', 'categories', 'tags']));
     }
 
     /**
@@ -93,7 +107,31 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->validate($request, [
+            'title' => "required|unique:posts,title,$post->id",
+            'image' => 'image',
+            'description' => 'required',
+            'category' => 'required',
+        ]);
+
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->description = $request->description;
+        $post->category_id = $request->category;
+
+        $post->tags()->sync($request->tag);
+
+        if ($request->has('image')) {
+            $image = $request->image;
+            $imageNewName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('storage/post', $imageNewName);
+            $post->image = '/storage/post/' . $imageNewName;
+        }
+        $post->save();
+
+
+        Session::flash('success', 'Post Updated!');
+        return redirect()->back();
     }
 
     /**
@@ -104,6 +142,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if($post) {
+            if (file_exists(public_path($post->image))) {
+                unlink(public_path($post->image));
+            }
+            $post->delete();
+            Session::flash('success', 'Post Deleted');
+        }
+
+        return redirect()->back();
     }
 }
