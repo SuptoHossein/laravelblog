@@ -238,6 +238,14 @@
                                 @csrf
                             </form>
                         </li>
+
+                        <li class="mt-5">
+                            <a class="nav-link btn btn-primary text-white" href="{{ route('website') }}" target="_blank">
+                                <p>
+                                    View Website
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
