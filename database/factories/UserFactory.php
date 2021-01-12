@@ -3,6 +3,9 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\User;
+use App\Category;
+use App\Post;
+use App\Tag;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -26,3 +29,32 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+// Category factory
+$factory->define(Category::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name(),
+        'slug' => Str::slug($faker->word()),
+    ];
+});
+
+// Tag factory
+$factory->define(Tag::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word(),
+        'slug' => Str::slug($faker->word()),
+    ];
+});
+
+// Post factory
+$factory->define(Post::class, function (Faker $faker) {
+    return [
+        'title' => $faker->sentence(),
+        'slug' => Str::slug($faker->word()),
+        'image' => $faker->imageUrl(600, 400),
+        'description' => $faker->text(400),
+        'category_id' => factory('App\Category')->create()->id,
+        'user_id' => 1,
+    ];
+});
+
