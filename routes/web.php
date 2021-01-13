@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontEndController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,24 +21,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 // Frontend Routes
-Route::get('/', function() {
-    return view('website.home');
-})->name('website');
-Route::get('/about', function() {
-    return view('website.about');
-});
-Route::get('/category', function() {
-    return view('website.category');
-});
-Route::get('/contact', function() {
-    return view('website.contact');
-});
-Route::get('/post', function() {
-    return view('website.post');
-});
-Route::get('/tag', function() {
-    return view('website.tag');
-});
+Route::get('/', 'FrontEndController@home')->name('website');
+
+Route::get('/about', 'FrontEndController@about')->name('website.about');
+
+Route::get('/category', 'FrontEndController@category')->name('website.category');
+
+Route::get('/contact', 'FrontEndController@contact')->name('website.contact');
+
+Route::get('/tag', 'FrontEndController@tag')->name('website.tag');
+
+Route::get('/post/{slug}', 'FrontEndController@post')->name('website.post');
 
 
 // Admin panel Routes
