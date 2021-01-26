@@ -224,6 +224,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.index') }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    User
+                                </p>
+                            </a>
+                        </li>
 
                         {{-- Logout --}}
                         <li class="nav-item">
