@@ -233,6 +233,16 @@
                             </a>
                         </li>
 
+                        <li class="nav-header">Your Account</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.profile') }}">
+                                <i class="nav-icon far fa-user"></i>
+                                <p>
+                                    Your Profile
+                                </p>
+                            </a>
+                        </li>
+
                         {{-- Logout --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"

@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-4">
                 @foreach ($middlePosts as $post)
-                <a href="single.html" class="h-entry img-5 h-100 gradient"
+                <a href="{{ route('website.post', ['slug' => $post->slug]) }}" class="h-entry img-5 h-100 gradient"
                     style="background-image: url('{{ $post->image }}');">
 
                     <div class="text">
@@ -34,9 +34,7 @@
             </div>
             <div class="col-md-4">
                 @foreach ($lastPosts as $post)
-                <a href="{{ route('website.post', ['slug' => $post->slug]) }}" class="h-entry mb-30 v-height gradient"
-                    style="background-image: url('{{ $post->image }}');">
-
+                <a href="{{ route('website.post', ['slug' => $post->slug]) }}" class="h-entry mb-30 v-height gradient" style="background-image: url('{{ $post->image }}');">
                     <div class="text">
                         <h2>{{ $post->title }}</h2>
                         <span class="date">{{ $post->created_at->format('M d, Y') }}</span>
@@ -68,7 +66,6 @@
                             <span class="d-inline-block mt-1">By <a href="#">{{ $rPost->user->name }}</a></span>
                             <span>&nbsp;-&nbsp; {{ $rPost->created_at->format('M d, Y') }} </span>
                         </div>
-
                         <p>{{ Str::limit($rPost->description, 120) }}</p>
                         <p><a href="{{ route('website.post', ['slug' => $rPost->slug]) }}">Read More</a></p>
                     </div>
@@ -108,7 +105,6 @@
                     </div>
                 </a>
                 @endforeach
-
             </div>
 
             <div class="col-md-7">
@@ -135,9 +131,7 @@
                         </div>
                     </a>
                     @endforeach
-
                 </div>
-
             </div>
         </div>
 

@@ -48,8 +48,10 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $user->id }}</td>
-                                        <td style="width: 100px;height: 70px;overflow:hidden">
-                                            <img src="{{ $user->image }}" class="img-fluid" alt="">
+                                        <td>
+                                            <div style="width: 100px;overflow:hidden">
+                                                <img src="{{ $user->image }}" class="img-fluid" alt="">
+                                            </div>
                                         </td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
