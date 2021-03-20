@@ -83,7 +83,11 @@
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <div style="height: 200px; width:200px; overflow: hidden;" class="m-auto">
-                                            <img src="{{ asset($user->image) }}" alt="" class="img-fluid rounded-circle">
+                                            @if ($user->image)
+                                                <img src="{{ asset($user->image) }}" alt="" class="img-fluid rounded-circle">
+                                            @else
+                                                <img src="{{ asset('website/images/user big.png') }}" alt="" class="img-fluid rounded-circle">
+                                            @endif
                                         </div>
                                         <h5 class="mt-3">{{ $user->name }}</h5>
                                         <p>{{ $user->email }}</p>
