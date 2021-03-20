@@ -12,8 +12,13 @@
                     <span class="post-category text-white bg-success mb-3">{{ $post->category->name }}</span>
                     <h1 class="mb-4"><a href="javascript:void()">{{ $post->title }}</a></h1>
                     <div class="post-meta align-items-center text-center">
-                        <figure class="author-figure mb-0 mr-3 d-inline-block"><img
-                                src="{{ asset($post->user->image) }}" alt="Image" class="img-fluid"></figure>
+                        <figure class="author-figure mb-0 mr-3 d-inline-block">
+                            @if ($post->user->image)
+                                <img src="{{ asset($post->user->image) }}" alt="Image" class="img-fluid">
+                            @else
+                                <img src="{{ asset('website/images/user.png') }}" alt="Image" class="img-fluid">
+                            @endif
+                        </figure>
                         <span class="d-inline-block mt-1">By {{ $post->user->name }}</span>
                         <span>&nbsp;-&nbsp; {{ $post->created_at->format('M d, Y') }}</span>
                     </div>
@@ -192,8 +197,12 @@
                 <!-- END sidebar-box -->
                 <div class="sidebar-box">
                     <div class="bio text-center">
-                        <img src="{{ asset($post->user->image) }}" alt="Image Placeholder"
-                            class="img-fluid mb-5">
+                        @if ($post->user->image)
+                            <img src="{{ asset($post->user->image) }}" alt="Image Placeholder" class="img-fluid mb-5">
+                        @else
+                            <img src="{{ asset('website/images/user.png') }}" alt="Image Placeholder" class="img-fluid mb-5">
+                        @endif
+
                         <div class="bio-body">
                             <h2>{{ $post->user->name }}</h2>
                             <p class="mb-4">{{$post->user->description}}</p>
