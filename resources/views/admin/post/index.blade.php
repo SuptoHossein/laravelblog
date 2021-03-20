@@ -78,8 +78,13 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="ml-3 mt-3">
+                        {{ $posts->links() }}
+                    </div>
                     <!-- /.card-body -->
                 </div>
+
             </div>
         </div>
     </div>
