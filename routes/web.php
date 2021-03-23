@@ -46,5 +46,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('user', 'UserController');
     Route::get('/profile', 'UserController@profile')->name('user.profile');
     Route::post('/profile', 'UserController@profile_update')->name('user.profile.update');
+    Route::resource('/settings', 'SettingsController@edit');
 });
 
